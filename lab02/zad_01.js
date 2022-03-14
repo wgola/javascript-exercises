@@ -7,8 +7,8 @@ let wolne_miejsce = 0;
 
 for (let i = 0; i < numbers.length; i++) {
     let czy_wystapilo = false;
-    for (let j = 0; j < unique.length; j++) {
-        if (unique[j] === numbers[i]) {
+    for (let j = 0; j < numbers.length; j++) {
+        if (i !== j && numbers[j] === numbers[i]) {
             czy_wystapilo = true;
             break;
         }
@@ -19,5 +19,5 @@ for (let i = 0; i < numbers.length; i++) {
     } 
 }
 
-console.log(numbers);
+
 console.log(unique);
