@@ -21,7 +21,16 @@ function ileRazy(tablica) {
                 break;
             }
         }
+        if (!czy_byl) {
+            wypisane.push(tablica[i]);
+            result.push(tablica[i] + ": " + ile[i]);
+        }
     }
+    return result;
 }
 
-console.log(ileRazy(['js', 'react', 'js', 'angular', 'angular', 'js']));
+const tablica = ileRazy(['js', 'react', 'js', 'angular', 'angular', 'js'])
+
+for (let i = 0; i < tablica.length; i++) {
+    console.log(tablica[i]);
+}
