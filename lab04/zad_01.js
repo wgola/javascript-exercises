@@ -7,6 +7,4 @@ function funkcja() {
     }
 }
 
-const test = funkcja();
-
-console.log(test(15));
+console.log(funkcja()(15));
