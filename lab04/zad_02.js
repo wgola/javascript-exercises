@@ -1,3 +1,5 @@
+'use strict';
+
 (function anonimowa_funkcja(tekst) {
     const wyrazy = tekst.split(" ");
     let maks = 0;
@@ -9,5 +11,6 @@
             wynik = element;
         }
     });
-    console.log(wynik);
+    return wynik;
 })('Ala ma kota');
+
