@@ -1,11 +1,11 @@
 'use strict';
 
 function wywołanie(funkcja) {
-    return funkcja;
+    funkcja();
 }
 
 function test() {
     console.log("test");
 }
 
-wywołanie(test());
+wywołanie(test);
