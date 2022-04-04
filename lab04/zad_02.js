@@ -1,6 +1,6 @@
 'use strict';
 
-(function anonimowa_funkcja(tekst) {
+const sprawdzenie = (function anonimowa_funkcja(tekst) {
     const wyrazy = tekst.split(" ");
     let maks = 0;
     let wynik = "";
@@ -14,3 +14,4 @@
     return wynik;
 })('Ala ma kota');
 
+console.log(sprawdzenie)
