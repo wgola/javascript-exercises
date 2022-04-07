@@ -7,9 +7,4 @@ const wynik = tablica.reduce( (acc, elem, indeks) => {
     return acc;
 }, []);
 
-wynik.reduce( (acc, elem) => {
-    console.log(elem);
-    return 0;
-}, 0);
-
-
+wynik.forEach(x => console.log(x));
