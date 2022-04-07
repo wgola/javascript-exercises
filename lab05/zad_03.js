@@ -1,0 +1,15 @@
+'use strict';
+
+const tablica = [1, 3, 6, 2, 9];
+
+const wynik = tablica.reduce( (acc, elem, indeks) => {
+    acc.push(indeks + ": " + elem);
+    return acc;
+}, []);
+
+wynik.reduce( (acc, elem) => {
+    console.log(elem);
+    return 0;
+}, 0);
+
+
