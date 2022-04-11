@@ -1,0 +1,9 @@
+{
+  "name": "lab06",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.13.0"
+  }
+}
