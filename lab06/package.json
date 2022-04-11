@@ -8,6 +8,8 @@
     "nodemon": "^2.0.15"
   },
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "zad_04": "nodemon src/zad_04.js",
+    "zad_05": "nodemon src/zad_05.js"
 }
 }
