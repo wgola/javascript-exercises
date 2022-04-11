@@ -70,4 +70,63 @@ function compare(a, b) {
 
 const produkty = listaZakupow.sort(compare);
 
-console.log(produkty);
+const przeksztalcenie1 = produkty.reduce(
+    (acc, elem) => {
+        acc[elem.typ]=[];
+        return acc;
+    }, {}
+);
+
+const przeksztalcenie2 = produkty.reduce(
+    (acc, elem) => {
+        acc[elem.typ].push(elem.produkt + " - " + elem.jednostka + ": " + elem.ilosc);
+        return acc;
+    }, przeksztalcenie1
+);
+
+const klucze = Object.keys(przeksztalcenie2);
+
+const wynik = klucze.reduce(
+    (acc1, elem1) => {
+        acc1 += elem1 + ":\n"
+        acc1 += przeksztalcenie2[elem1].reduce(
+            (acc2, elem2, indeks) => {
+                acc2 += indeks + 1 + ". " + elem2 + "\n";
+                return acc2;
+            }, ""
+        );
+        return acc1;
+    }, ""   
+);
+
+console.log(wynik);
+
+const maks = listaZakupow.reduce(
+    (acc, elem) => {
+        if (elem.cena > acc) acc = elem.cena;
+        return acc;
+    }, 0
+);
+
+const sortowanie = (a, b) => {
+    const wartoscA = a.cena * a.ilosc;
+    const wartoscB = b.cena * b.ilosc;
+    if (wartoscA > wartoscB) return 1;
+    if (wartoscA < wartoscB) return -1;
+    else return 0;
+}
+
+const listaZakupowPosortowana = listaZakupow.sort(sortowanie);
+
+const znalezienieProduktow = listaZakupowPosortowana.reduce(
+    ([tablica, suma], elem) => {
+        const wartosc = elem.cena * elem.ilosc;
+        if (wartosc < maks && suma + wartosc < maks) {
+            tablica.push({ [elem.produkt]: { 'cena': wartosc}});
+            suma += wartosc;
+        }
+        return [tablica, suma];
+    }, [[], 0] 
+);
+
+console.log(znalezienieProduktow[0]);

@@ -10,6 +10,7 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "zad_04": "nodemon src/zad_04.js",
-    "zad_05": "nodemon src/zad_05.js"
+    "zad_05": "nodemon src/zad_05.js",
+    "zad_06": "nodemon src/zad_06.js"
 }
 }
