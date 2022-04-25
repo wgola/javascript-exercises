@@ -14,7 +14,8 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "babel": "babel src -d es5out",
-    "zad2": "nodemon src/zad_02.js"
+    "zad2": "nodemon src/zad_02.js",
+    "zad3": "nodemon src/zad_03.js"
   },
   "dependencies": {
     "lodash": "^4.17.21"
