@@ -1,0 +1,15 @@
+{
+  "name": "lab09",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "nodemon": "^2.0.16"
+  },
+  "scripts": {
+    "zad1": "nodemon src/creatingObjects2.js",
+    "zad2": "nodemon src/zad2.js",
+    "zad3": "nodemon src/inheritance.js"
+  }
+}
