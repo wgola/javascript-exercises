@@ -44,10 +44,10 @@ dog.whatIs = function () {
 // Stwórz obiekt za pomocą funkcji CreateMovie (zawierający klucze bez wartości: director, title, year) wykorzystując słówko `this`.
 // Jeśli przy tworzeniu obiektu rok nie zostanie podany powinien przyjmować wartość "unknown".
 
-function CreateMovie(director, title, year="unknown") {
+function CreateMovie(director, title, year) {
     this.director = director;
     this.title = title;
-    this.year = year;
+    this.year = year || "unknown";
 }
 
 // Następnie nie zmieniając implementacji funkcji CreateMovie, dodaj do niego metody: 
@@ -64,17 +64,23 @@ CreateMovie.prototype = {
     }
 }
 
-const test = new CreateMovie("rez", "tytul", 2000);
+const test = new CreateMovie("rez", "tytul");
 
 console.log(test.isOlder(1999));
 
 // 1.5.
 // Uzupełnij poniższy konstruktor o inicjalizację name, type i funkcję printInstrument. Funkcja printInstrument powinna być współdzielona między wszystkie utworzone obiekty.
 
-// function CreateInstrument(name, type) {
-//    const instrument = Object.create();
-//    return instrument;
-// }
+function CreateInstrument(name, type) {
+   const instrument = Object.create({
+       printInstrument: function() {
+           console.log("nazwa: " + this.name + ", typ: " + this.type)
+       }
+   });
+   instrument.name = name;
+   instrument.type = type;
+   return instrument;
+}
 
 
 // 1.6. 
@@ -82,16 +88,21 @@ console.log(test.isOlder(1999));
 // Zdefiniuj funkcję setStrings(number), która ustala liczbę strun w instrumencie (ta funkcja też powinna być współdzielona). NewStringInstrument powinien mieć też dostęp do funkcji, która znajduje się w Instrument.
 // Podpowiedź: aby zmienić wartość zmiennej __proto__ należy użyć - Object.setPrototypeOf(object, prototype) - należy użyć tej funkcji dwa razy w tym rozwiązaniu. 
 
-// function CreateStringedInstrument(name, type, stringsCount) {
-//     const newStringedInstrument = 
+function CreateStringedInstrument(name, type, stringsCount) {
+    const newStringedInstrument = Object.setPrototypeOf({}, Object.setPrototypeOf(
+        { stringsCount: stringsCount,
+        setStrings: function(number) {
+            this.stringsCount = number;
+        }}, CreateInstrument(name, type)));
+    
+    return newStringedInstrument;
+}
 
-//     return newStringedInstrument;
-// }
-
-// const stringedInstrument = CreateStringedInstrument('gitara', 'strunowy', '3');
-// stringedInstrument.printInstrument();
-// stringedInstrument.setStrings(3);
-
+const stringedInstrument = CreateStringedInstrument('gitara', 'strunowy', '3');
+stringedInstrument.printInstrument();
+stringedInstrument.setStrings(5);
+console.log(stringedInstrument.name);
+console.log(stringedInstrument.stringsCount)
 
 // 1.7. 
 // Przeanalizuj poniższy kod i odpowiedz na umieszczone w nim pytania.
@@ -101,12 +112,12 @@ function Instrument(name, type) {
     this.type = type;
 }
 
-Instrument.prototype.printInstrument = function () {
+Instrument.prototype.printInstrument = function (name, type) {
     console.log("Instrument: " + name + ", typ: " + type);
 }
 
 function StringedInstrument(stringsCount, name, type) {
-    Instrument.call(this, name, type);
+    Instrument.apply(this, [name, type]);
     this.stringsCount = stringsCount;
 }
 
@@ -114,11 +125,64 @@ StringedInstrument.prototype = Object.create(Instrument.prototype);
 
 // a) Stwórz instancję StringedInstrument.
 
+const strunowy = new StringedInstrument(5, "gitara", "elektryczna");
+
 // b) W jaki sposób odwołać się do metody printInstrument?
+
+strunowy.printInstrument.call(strunowy, strunowy.name, strunowy.type);
 
 // c) Zastąp wywołanie call() funkcją apply() 
 
 // 1.8.
-// Utwórz obiekt Animal z polem 'name' i funkcją printName, po którym będą dziedziczyły Mammal (z polem age i funkcją getAge) i Fish (z polem weight i funkcją increaseWeight()) . 
-// Następnie stwórz kolejne obiekty - Dog (z polem breed i nadpisaniem funkcji getAge(), która tutaj będzie najpierw wywoływała funkcję getAge() z klasy dziedziczonej, a następnie mnożyła wynik razy 4 i wyświetlała go) i Salmon (z funkcją catch()), które będą dziedziczyły odpowiednio po Mammal i Fish.
+// Utwórz obiekt Animal z polem 'name' i funkcją printName, po którym będą dziedziczyły Mammal (z polem age i funkcją getAge) i Fish (z polem weight i funkcją increaseWeight()). 
+// Następnie stwórz kolejne obiekty - Dog (z polem breed i nadpisaniem funkcji getAge(), która tutaj będzie najpierw wywoływała funkcję getAge() z klasy dziedziczonej, 
+// a następnie mnożyła wynik razy 4 i wyświetlała go) i Salmon (z funkcją catch()), które będą dziedziczyły odpowiednio po Mammal i Fish.
 // W razie problemów wzoruj się na rozwiązaniu z poprzedniego zadania.
+
+function Animal2(name) {
+    this.name = name;
+}
+
+Animal2.prototype.printName = function() {
+    console.log("imie: " + this.name)
+};
+
+function Mammal(name, age) {
+    Animal2.call(this, name);
+    this.age = age;
+}
+
+Mammal.prototype = Object.create(Animal2.prototype);
+Mammal.prototype.getAge = function() {
+    return this.age;
+};
+
+function Fish(name, weight) {
+    Animal2.call(this, name);
+    this.weight = weight;
+}
+
+Fish.prototype = Object.create(Animal2.prototype);
+Fish.prototype.increaseWeight = function() {
+    this.weight ++;
+};
+
+function Dog(name, age, breed) {
+    Mammal.call(this, name, age);
+    this.breed = breed;
+}
+
+Dog.prototype = Object.create(Mammal.prototype);
+Dog.prototype.getAge = function() {
+    return 4 * Mammal.prototype.getAge.call(this);
+}
+
+function Salmon(name, weight) {
+    Fish.call(this, name, weight);
+}
+
+Salmon.prototype = Object.create(Fish.prototype);
+Salmon.prototype.catch = function() {
+    this.printName();
+    console.log("waga: " + this.weight);
+}
