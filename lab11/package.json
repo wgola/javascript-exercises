@@ -1,0 +1,12 @@
+{
+  "name": "lab10",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "zad2": "node src/eventloop.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.16.0"
+  }
+}
