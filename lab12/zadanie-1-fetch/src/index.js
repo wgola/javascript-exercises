@@ -8,13 +8,12 @@ Jako pierwszy callback - sprawdź, czy response jest poprawny (status równy 200
 Jako następny callback - użyj destrukcji obiektów, aby wypisać w konsoli zmienną 'data' i 'headers'.
 */
 
-// fetch('https://jsonplaceholder.typicode.com/posts')
-// .then(response => response.status === 200 ? response : console.log("Błąd")).then(response => {
-//   const { headers, body, ...reszta } = response;
-//   console.log(body);
-//   console.log("---");
-//   console.log(headers);
-// })
+fetch('https://jsonplaceholder.typicode.com/posts')
+.then(response => response.status === 200 ? response : console.log("Błąd")).then(response => {
+  const { headers, ...reszta } = response;
+  console.log(headers);
+  response.json().then(data => console.log(data))
+})
 
 /* 
 Zadanie 1.2 

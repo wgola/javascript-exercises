@@ -12,13 +12,14 @@ Jako pierwszy callback - sprawdź, czy response jest poprawny (status równy 200
 Jako następny callback - użyj destrukcji obiektów, aby wypisać w konsoli zmienną 'data' i 'headers'.
 */
 
-// axios.get('https://jsonplaceholder.typicode.com/posts')
-// .then(response => response.status === 200 ? response : console.log("Błąd")).then(response => {
-//     const { headers, data, ...reszta } = response
-//     console.log(headers);
-//     console.log("---");
-//     console.log(data);
-// })
+axios.get('https://jsonplaceholder.typicode.com/posts')
+.then(response => response.status === 200 ? response : console.log("Błąd")).then(response => {
+    const { headers, data, ...reszta } = response
+    console.log(headers);
+    console.log("---");
+    console.log(data);
+    
+})
 
 /* 
 Zadanie 1.2 
