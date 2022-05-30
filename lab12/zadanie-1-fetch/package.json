@@ -1,0 +1,14 @@
+{
+  "name": "zadanie-1-fetch",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "fetch": "^1.1.0",
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "node-fetch": "^3.2.4"
+  }
+}
