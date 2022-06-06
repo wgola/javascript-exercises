@@ -1,29 +1,33 @@
 'use strict';
 
 const poKolei = (fun1, fun2, cb) => {
-    function async(funkcja, argumenty, callback) {
-        const tmp = funkcja(argumenty);
-        callback(tmp);
-    }
-    return async(fun1, 5, (dane) => {
-        async(fun2, dane, cb)
-    })
+    const argument = 5;
+    fun1(argument, wynik => {
+        fun2(wynik, wynik2 => {
+            cb(wynik2);
+        });
+    });
 }
 
-const fun1 = (x) => {
+
+const func1 = (x, cb) => {
     setTimeout(() => {
-        console.log("Funkcja1");
-        return x + 1;
+      console.log("Funkcja 1");
+      // inkrementujemy x
+      cb(x + 1);
+    }, 4000);
+}
+
+const func2 = (x, cb) => {
+    setTimeout(() => {
+      console.log("funkcja 2");
+       // inkrementujemy x
+       cb(x + 1);
     }, 2000);
 }
 
-const fun2 = (x) => {
-    console.log("Funkcja2");
-    return x + 2;
+const cb = (data) => {
+  console.log("Rezultat", data);
 }
 
-const cb = (x) => {
-    console.log(x);
-}
-
-poKolei(fun1, fun2, cb);
+poKolei(func1, func2, cb);
